@@ -35,15 +35,14 @@ exports.addHashToObject = (transformedObject) => {
 
 exports.encryptObject = (transformedObjectWithHash) => {
   try {
-    // const iv = crypto.randomBytes(16).toString("hex").slice(0, 16);
-    const iv = process.env.IV;
+    const iv = crypto.randomBytes(16).toString("hex").slice(0, 16);
     const key = process.env.SECRET_KEY;
     const message = JSON.stringify(transformedObjectWithHash);
 
     const encrypter = crypto.createCipheriv("aes-256-ctr", key, iv);
     let encryptedMessage = encrypter.update(message, "utf8", "hex");
 
-    return encryptedMessage;
+    return `${iv}:${encryptedMessage}`;
   } catch (err) {
     throw Error("Error while encrypting the object");
   }

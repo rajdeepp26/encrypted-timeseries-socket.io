@@ -41,7 +41,7 @@ listenerServer.on("connection", function (socket) {
       let validObject = await listenerService.validateObject(decryptedObject);
       if (Object.keys(validObject).length === 3) {
         let dbResponse = await listenerService.saveToDb(validObject);
-        listenerServer.emit("data_to_webclient", JSON.stringify(validObject)); //send message to web client
+        listenerServer.emit("data_to_webclient", JSON.stringify(dbResponse)); //send message to web client
       }
     } catch (err) {
       console.log(err);

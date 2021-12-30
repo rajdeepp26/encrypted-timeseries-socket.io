@@ -18,12 +18,12 @@ exports.saveToDb = async (validObject) => {
 
 exports.getDecryptedObject = async (encryptedData) => {
   try {
-    // const iv = crypto.randomBytes(16).toString("hex").slice(0, 16);
+    let dataArray = encryptedData.split(':');
+    let iv = dataArray.shift();
     let key = process.env.SECRET_KEY;
-    let iv = process.env.IV;
 
     const decrypter = crypto.createDecipheriv("aes-256-ctr", key, iv);
-    let decryptedData = decrypter.update(encryptedData.toString(), "hex", "utf-8");
+    let decryptedData = decrypter.update(dataArray[0].toString(), "hex", "utf-8");
     return decryptedData;
   } catch (err) {
     throw Error("Error while adding decrypting object");
