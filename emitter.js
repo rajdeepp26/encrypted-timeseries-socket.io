@@ -33,7 +33,7 @@ emitterServer.on("connection", function (socket) {
 });
 
 listenerService.on("connect", function () {
-  console.log("Connected to listener!");
+  console.log("Connected to listener service");
   console.log(`Emitting data to ${HOST}:${process.env.LISTENER_PORT}...`);
   let Emitter = setInterval(() => {
     let transformedObject = emitterService.createObjectFromFile(fileObject);
